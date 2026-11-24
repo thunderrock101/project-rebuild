@@ -1,10 +1,10 @@
-name: AgentApp
+name: ProjectRebuild
 options:
   bundleIdPrefix: io.github.OWNER
   deploymentTarget:
     iOS: "18.0"
 targets:
-  AgentApp:
+  ProjectRebuild:
     type: application
     platform: iOS
     sources:
@@ -16,7 +16,7 @@ targets:
     info:
       path: App/Info.plist
       properties:
-        CFBundleDisplayName: AgentApp
+        CFBundleDisplayName: PROJECT REBUILD
         CFBundleShortVersionString: "0.1.0"
         CFBundleVersion: "1"
         UILaunchScreen: {}
@@ -24,11 +24,11 @@ targets:
         LSSupportsOpeningDocumentsInPlace: true
         NSLocalNetworkUsageDescription: "This app runs a local control server so your assistant can drive it."
         CFBundleURLTypes:
-          - CFBundleURLName: io.github.OWNER.agentapp
-            CFBundleURLSchemes: [agentapp]
+          - CFBundleURLName: io.github.OWNER.projectrebuild
+            CFBundleURLSchemes: [projectrebuild]
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: io.github.OWNER.agentapp
+        PRODUCT_BUNDLE_IDENTIFIER: io.github.OWNER.projectrebuild
         SWIFT_VERSION: "5.0"
         SWIFT_STRICT_CONCURRENCY: minimal
         TARGETED_DEVICE_FAMILY: "1,2"

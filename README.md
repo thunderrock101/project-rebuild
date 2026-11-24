@@ -1,4 +1,13 @@
-# ios-agent-app-template
+# PROJECT REBUILD iPhone app
+
+This checkout now contains a native SwiftUI MVP for PROJECT REBUILD, built from
+the original iOS agent app template. It is an offline personal progression
+system with daily habits, persistent XP and levels, sleep sessions, mood and
+journal check-ins, recovery mode, and a reward store. Data is stored locally on
+the iPhone; the template's loopback control API remains available for agent
+driving and inspection.
+
+The remaining sections document the underlying build and sideload workflow.
 
 A starting point an AI agent can use to build, ship and drive a **native iOS app (Swift + optional Rust)** on a real iPhone, **without a Mac and without a paid Apple Developer account**. Built from a working setup (LoopLab) on iPhone 17 Pro Max / iOS 27, October 2026.
 

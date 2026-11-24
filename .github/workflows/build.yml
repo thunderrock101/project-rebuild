@@ -43,11 +43,11 @@ jobs:
       - name: Archive (unsigned)
         run: |
           set -o pipefail
-          xcodebuild -project AgentApp.xcodeproj -scheme AgentApp -configuration Release \
+          xcodebuild -project ProjectRebuild.xcodeproj -scheme ProjectRebuild -configuration Release \
             -sdk iphoneos -destination "generic/platform=iOS" \
             -clonedSourcePackagesDirPath build/SourcePackages \
             -skipMacroValidation -skipPackagePluginValidation \
-            -archivePath "$RUNNER_TEMP/AgentApp.xcarchive" archive \
+            -archivePath "$RUNNER_TEMP/ProjectRebuild.xcarchive" archive \
             CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
             2>&1 | tee "$RUNNER_TEMP/build.log" | grep -E "error:|warning: .*(deprecated|unavailable)|BUILD|ARCHIVE" | head -200
       - name: Upload build log on failure
@@ -58,7 +58,7 @@ jobs:
         id: pkg
         run: |
           set -euo pipefail
-          APP=$(find "$RUNNER_TEMP/AgentApp.xcarchive/Products/Applications" -maxdepth 1 -name "*.app" | head -1)
+          APP=$(find "$RUNNER_TEMP/ProjectRebuild.xcarchive/Products/Applications" -maxdepth 1 -name "*.app" | head -1)
           rm -rf "$APP/_CodeSignature" "$APP/embedded.mobileprovision"
           # Ad-hoc sign WITH entitlements: SideStore/AltStore read requested entitlements from the
           # binary's signature when re-signing; an unsigned binary requests none.
@@ -69,7 +69,7 @@ jobs:
           BUILD=${{ github.run_number }}
           /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD" "$APP/Info.plist"
           SHORT=$(git rev-parse --short HEAD)
-          NAME="AgentApp-$VERSION-$BUILD.ipa"
+          NAME="ProjectRebuild-$VERSION-$BUILD.ipa"
           mkdir -p "$RUNNER_TEMP/pkg/Payload"; cp -R "$APP" "$RUNNER_TEMP/pkg/Payload/"
           (cd "$RUNNER_TEMP/pkg" && zip -qry "$RUNNER_TEMP/$NAME" Payload)
           SIZE=$(stat -f%z "$RUNNER_TEMP/$NAME")
@@ -82,7 +82,7 @@ jobs:
           owner = repo.split("/")[0]
           bid = os.environ.get("BID", "")
           src = {"name": f"{repo} builds", "identifier": f"io.github.{owner.lower()}.{repo.split('/')[1].lower()}.source",
-                 "apps": [{"name": "AgentApp", "bundleIdentifier": bid,
+                 "apps": [{"name": "PROJECT REBUILD", "bundleIdentifier": bid,
                            "developerName": owner, "localizedDescription": "Built by CI, re-signed on device.",
                            "iconURL": "", "versions": [{"version": ver, "date": datetime.datetime.now(datetime.timezone.utc).isoformat(),
                            "downloadURL": f"https://github.com/{repo}/releases/download/{tag}/{name}", "size": size}]}]}

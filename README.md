@@ -1,11 +1,42 @@
-# PROJECT REBUILD iPhone app
+# PROJECT REBUILD
 
-This checkout now contains a native SwiftUI MVP for PROJECT REBUILD, built from
-the original iOS agent app template. It is an offline personal progression
-system with daily habits, persistent XP and levels, sleep sessions, mood and
-journal check-ins, recovery mode, and a reward store. Data is stored locally on
-the iPhone; the template's loopback control API remains available for agent
-driving and inspection.
+This repository includes a native SwiftUI experiment under `App/` and a
+Cloudflare Pages ready, installable web app under `web/`. The web app is the
+recommended iPhone path: host it on HTTPS, open it in Safari, then use **Share →
+Add to Home Screen**. It works offline after its first load and stores personal
+records encrypted in the browser.
+
+## Host the web app on Cloudflare Pages
+
+The GitHub repository is `thunderrock101/project-rebuild`.
+
+1. In Cloudflare, open **Workers & Pages → Create application → Pages → Import
+   an existing Git repository** and select this repository.
+2. Configure the production branch as `main`, build command as `exit 0`, and
+   build output directory as `web`.
+3. Deploy. Cloudflare gives the site an HTTPS `*.pages.dev` address and can
+   deploy future pushes automatically.
+4. On iPhone, open that address in Safari, tap **Share → Add to Home Screen →
+   Add**, then launch it from the new Home Screen icon.
+
+The app code is static. Cloudflare serves the shell files, while habits, sleep,
+mood, journal, XP and rewards remain in local IndexedDB. The app does not upload
+those records. A password is used with PBKDF2-SHA256 to derive an AES-256-GCM
+encryption key; the password and key are not persisted. Exported backups are
+encrypted too. Losing the password means the local data and backups cannot be
+decrypted, so keep the password safe.
+
+The web MVP includes the dashboard, default daily habits, custom habit add,
+one-time XP awards, recovery mode, sleep sessions, mood/journal check-ins,
+reward credits, encrypted backup/restore, and offline shell caching. Analytics,
+finance, nutrition, fitness, projects and expanded achievement management are
+future modules. It does not provide medical diagnoses.
+
+## Native iOS template
+
+The `App/` directory retains the SwiftUI version and loopback control API. Its
+build workflow runs on GitHub Actions; the browser app can be deployed
+independently from `web/` using the Pages configuration above.
 
 The remaining sections document the underlying build and sideload workflow.
 

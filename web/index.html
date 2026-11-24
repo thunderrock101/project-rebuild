@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#090c12">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="REBUILD">
+  <meta name="description" content="A private, offline personal progression system. Progress, not perfection.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <title>PROJECT REBUILD</title>
+</head>
+<body>
+  <div id="app" class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">R</span><div><b>PROJECT</b><strong>REBUILD</strong></div></div>
+      <div class="nav-label">YOUR SPACE</div>
+      <nav id="navigation" aria-label="Main navigation">
+        <button class="nav-item active" data-page="dashboard"><span>◈</span>Command center</button>
+        <button class="nav-item" data-page="tracker"><span>☑</span>Daily tracker</button>
+        <button class="nav-item" data-page="sleep"><span>☾</span>Sleep</button>
+        <button class="nav-item" data-page="mood"><span>♡</span>Mood & journal</button>
+        <button class="nav-item" data-page="rewards"><span>✧</span>Rewards</button>
+        <button class="nav-item" data-page="settings"><span>⚙</span>Settings & backup</button>
+      </nav>
+      <div class="sidebar-bottom"><span class="online-dot"></span>Private & offline<p>Your records stay encrypted on this device.</p><button id="lockButton" class="quiet-button">Lock app</button></div>
+    </aside>
+    <main class="main-area">
+      <header class="topbar"><span id="pageKicker">PERSONAL COMMAND CENTER</span><span class="secure-pill"><i></i> ENCRYPTED</span></header>
+      <section id="view-dashboard" class="page active"></section>
+      <section id="view-tracker" class="page"></section>
+      <section id="view-sleep" class="page"></section>
+      <section id="view-mood" class="page"></section>
+      <section id="view-rewards" class="page"></section>
+      <section id="view-settings" class="page"></section>
+      <footer>PROJECT REBUILD <span>·</span> Progress, not perfection.</footer>
+    </main>
+  </div>
+  <nav class="mobile-nav" id="mobileNav" aria-label="Main navigation">
+    <button class="active" data-page="dashboard"><span>◈</span><small>Home</small></button><button data-page="tracker"><span>☑</span><small>Tracker</small></button><button data-page="sleep"><span>☾</span><small>Sleep</small></button><button data-page="mood"><span>♡</span><small>Mood</small></button><button data-page="rewards"><span>✧</span><small>Rewards</small></button>
+  </nav>
+  <div id="authOverlay" class="auth-overlay">
+    <div class="auth-card">
+      <div class="brand auth-brand"><span class="brand-mark">R</span><div><b>PROJECT</b><strong>REBUILD</strong></div></div>
+      <div class="eyebrow">YOUR PERSONAL PROGRESSION SYSTEM</div>
+      <h1 id="authTitle">A private space to begin again.</h1>
+      <p id="authCopy">Your information is encrypted on this device. Set a password to unlock your command center.</p>
+      <form id="authForm">
+        <label for="passwordInput">Password</label><input id="passwordInput" type="password" minlength="8" autocomplete="new-password" placeholder="At least 8 characters" required>
+        <div id="confirmWrap"><label for="confirmInput">Confirm password</label><input id="confirmInput" type="password" minlength="8" autocomplete="new-password" placeholder="Enter it again"></div>
+        <button class="button primary full" id="authSubmit" type="submit">Create encrypted space</button>
+      </form>
+      <p id="authError" class="form-error" role="alert"></p>
+      <div class="auth-foot"><span>◆</span> Your password is never sent to a server.</div>
+    </div>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <dialog id="modal"></dialog>
+  <script src="app.js" defer></script>
+</body>
+</html>
